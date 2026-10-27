@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิทยาลัยเทคนิคนางรอง - Nangrong Technical College</title>
+    <!-- Google Fonts ภาษาไทย -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: #f7f4fc;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header / Banner - ปรับให้รองรับรูปหน้าปก */
+        header {
+            background: linear-gradient(135deg, #4a154b 0%, #6b2d70 50%, #8e44ad 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 10px rgba(74, 21, 75, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        /* ส่วนแสดงรูปหน้าปก (Cover Image) ให้อยู่ตรงกลางและสวยงาม */
+        .cover-image-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cover-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Container & Navigation Buttons */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .welcome-text {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .btn-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(107, 45, 112, 0.15);
+            border-color: #8e44ad;
+        }
+
+        .btn-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #6b2d70;
+        }
+
+        .btn-card h3 {
+            font-size: 1.3rem;
+            color: #4a154b;
+            margin-bottom: 10px;
+        }
+
+        .btn-card p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4a154b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        /* Modal (หน้าต่างป็อบอัพ) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #888;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .close-btn:hover {
+            color: #4a154b;
+        }
+
+        .modal-header {
+            border-bottom: 2px solid #8e44ad;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #4a154b;
+        }
+
+        .modal-body p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* Map iFrame Style */
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            header p { font-size: 1rem; }
+            .modal-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ส่วนหัวเว็บไซต์ พร้อมรูปหน้าปกตรงกลาง -->
+    <header>
+        <h1>ยินดีต้อนรับสู่ วิทยาลัยเทคนิคนางรอง</h1>
+        <p>Nangrong Technical College</p>
+        
+        <!-- รูปหน้าปก (Cover Image) -->
+        <div class="cover-image-container">
+            <img src="image_357253.jpg" alt="แผนผังวิทยาลัยเทคนิคนางรอง">[cite: 2]
+        </div>
+    </header>
+
+    <!-- ส่วนเนื้อหาหลักและปุ่มกด -->
+    <div class="container">
+        <p class="welcome-text">กรุณาเลือกเมนูที่คุณต้องการรับชมข้อมูลด้านล่าง</p>
+
+        <div class="button-grid">
+            <!-- ปุ่มที่ 1 -->
+            <div class="btn-card" onclick="openModal('modal-info')">
+                <div class="icon">🏫</div>
+                <h3>1. รายละเอียดวิทยาลัย</h3>
+                <p>ประวัติความเป็นมา วิสัยทัศน์ และสาขาวิชาที่เปิดสอน</p>
+            </div>
+
+            <!-- ปุ่มที่ 2 -->
+            <div class="btn-card" onclick="openModal('modal-map')">
+                <div class="icon">📍</div>
+                <h3>2. แผนที่และการเดินทาง</h3>
+                <p>พิกัดการเดินทางและแผนที่นำทางมายังวิทยาลัย</p>
+            </div>
+
+            <!-- ปุ่มที่ 3 -->
+            <div class="btn-card" onclick="openModal('modal-contact')">
+                <div class="icon">📞</div>
+                <h3>3. ข้อมูลการติดต่อ</h3>
+                <p>เบอร์โทรศัพท์ อีเมล และช่องทางโซเชียลมีเดีย</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ส่วนท้าย -->
+    <footer>
+        <p>&copy; 2026 วิทยาลัยเทคนิคนางรอง | Nangrong Technical College</p>
+    </footer>
+
+    <!-- ================= หน้าต่าง MODAL (3 ปุ่ม) ================= -->
+
+    <!-- Modal 1: รายละเอียดเกี่ยวกับวิทยาลัย -->
+    <div class="modal-overlay" id="modal-info">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-info')">&times;</button>
+            <div class="modal-header">
+                <h2>รายละเอียดเกี่ยวกับวิทยาลัย</h2>
+            </div>
+            <div class="modal-body">
+                <p><strong>วิทยาลัยเทคนิคนางรอง</strong> เป็นสถานศึกษาที่มุ่งมั่นจัดการศึกษาด้านอาชีวศึกษาเพื่อพัฒนากำลังคนให้มีความรู้ ทักษะ และคุณธรรม เข้าสู่ตลาดแรงงานและสังคม</p>
+                <p><strong>ระดับการศึกษาที่เปิดสอน:</strong></p>
+                <ul>
+                    <li>ประกาศนียบัตรวิชาชีพ (ปวช.)</li>
+                    <li>ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</li>
+                </ul>
+                <p><strong>สาขางานที่เปิดสอน (ตัวอย่าง):</strong> ช่างยนต์, ช่างไฟฟ้ากำลัง, ช่างอิเล็กทรอนิกส์, เทคโนโลยีสารสนเทศ, การบัญชี, การตลาด ฯลฯ</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: แผนที่และการนำทาง -->
+    <div class="modal-overlay" id="modal-map">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-map')">&times;</button>
+            <div class="modal-header">
+                <h2>แผนที่และการเดินทาง</h2>
+            </div>
+            <div class="modal-body">
+                <p><strong>ที่อยู่:</strong> วิทยาลัยเทคนิคนางรอง อำเภอนางรอง จังหวัดบุรีรัมย์</p>
+                <p><strong>การเดินทาง:</strong> สามารถเดินทางมาตามถนนสายหลัก (ทางหลวงหมายเลข 24) เข้าสู่ตัวอำเภอนางรอง จากนั้นปักหมุดนำทางตาม Google Maps ด้านล่างนี้:</p>
+                
+                <div class="map-container">
+                    <!-- Google Maps iFrame Embed -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3862.839616231948!2d102.7600000!3d14.6300000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDM3JzE4LjAiTiAxMDLCsDQ1JzM2LjAiRQ!5e0!3m2!1sth!2sth!4v1600000000000!5m2!1sth!2sth" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: ข้อมูลติดต่อ -->
+    <div class="modal-overlay" id="modal-contact">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-contact')">&times;</button>
+            <div class="modal-header">
+                <h2>ข้อมูลติดต่อ วิทยาลัยเทคนิคนางรอง</h2>
+            </div>
+            <div class="modal-body">
+                <p>หากต้องการสอบถามข้อมูลเพิ่มเติม การสมัครเรียน หรือติดต่อฝ่ายต่างๆ สามารถติดต่อได้ตามช่องทางด้านล่างนี้:</p>
+                <ul>
+                    <li><strong>📍 ที่อยู่:</strong> อ.นางรอง จ.บุรีรัมย์ 31110</li>
+                    <li><strong>📞 เบอร์โทรศัพท์:</strong> 044-XXXXXX (เบอร์กลาง)</li>
+                    <li><strong>📠 แฟกซ์:</strong> 044-XXXXXX</li>
+                    <li><strong>📧 อีเมล:</strong> saraban@nrtc.ac.th</li>
+                    <li><strong>🌐 เว็บไซต์หลัก:</strong> <a href="http://www.nrtc.ac.th" target="_blank" style="color: #6b2d70;">www.nrtc.ac.th</a></li>
+                    <li><strong>🕒 เวลาทำการ:</strong> จันทร์ - ศุกร์ (08.30 น. - 16.30 น.)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript เปิด/ปิด หน้าต่าง Modal -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // ปิด Modal เมื่อคลิกพื้นที่ภายนอกหน้าต่าง
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
