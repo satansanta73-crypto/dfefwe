@@ -1,3 +1,6 @@
+นี่คือโค้ด HTML ที่ปรับปรุงใหม่ครับ ผมได้เพิ่มรูปภาพของวิทยาลัย (เป็นรูปแทนที่เหมาะสม) เข้าไปในหน้าเว็บไซต์ และปรับแต่งหน้าตาเล็กน้อยเพื่อให้ดูสวยงามและเป็นสัดส่วนมากขึ้น โดยจัดวางรูปภาพหลักไว้ด้านบนก่อนเข้าสู่เมนูปุ่มกดครับ
+
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -15,16 +18,16 @@
         }
 
         body {
-            background-color: #f4f2f9; /* ปรับพื้นหลังให้อมม่วงอ่อนๆ */
+            background-color: #f4f6f9;
             color: #333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* Header / Banner - เปลี่ยนเป็นโทนสีม่วง */
+        /* Header / Banner */
         header {
-            background: linear-gradient(135deg, #4a154b 0%, #6b217a 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             text-align: center;
             padding: 60px 20px;
@@ -48,6 +51,20 @@
             padding: 0 20px;
             text-align: center;
             flex: 1;
+        }
+
+        /* College Image Section */
+        .college-image-container {
+            margin-bottom: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .college-image {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .welcome-text {
@@ -74,19 +91,19 @@
 
         .btn-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(107, 33, 122, 0.2);
-            border-color: #6b217a;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+            border-color: #2a5298;
         }
 
         .btn-card .icon {
             font-size: 3rem;
             margin-bottom: 15px;
-            color: #6b217a;
+            color: #2a5298;
         }
 
         .btn-card h3 {
             font-size: 1.3rem;
-            color: #4a154b;
+            color: #1e3c72;
             margin-bottom: 10px;
         }
 
@@ -95,9 +112,9 @@
             color: #666;
         }
 
-        /* Footer - โทนสีม่วง */
+        /* Footer */
         footer {
-            background-color: #4a154b;
+            background-color: #1e3c72;
             color: white;
             text-align: center;
             padding: 20px;
@@ -129,9 +146,9 @@
         }
 
         .modal-content {
-            background: #ffffff;
+            background: white;
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             max-height: 85vh;
             border-radius: 12px;
             padding: 30px;
@@ -163,14 +180,13 @@
         }
 
         .modal-header {
-            border-bottom: 2px solid #6b217a;
+            border-bottom: 2px solid #2a5298;
             padding-bottom: 10px;
             margin-bottom: 20px;
-            text-align: center;
         }
 
         .modal-header h2 {
-            color: #4a154b;
+            color: #1e3c72;
         }
 
         .modal-body p {
@@ -200,26 +216,12 @@
             border: 0;
         }
 
-        /* สไตล์สำหรับรูปแผนผังวิทยาลัย (จัดให้อยู่ตรงกลาง) */
-        .plan-image-container {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .plan-image-container img {
-            width: 100%;
-            max-width: 700px;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid #6b217a;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
         /* Responsive Design */
         @media (max-width: 600px) {
             header h1 { font-size: 1.8rem; }
             header p { font-size: 1rem; }
             .modal-content { padding: 20px; }
+            .college-image-container { margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -233,34 +235,33 @@
 
     <!-- ส่วนเนื้อหาหลักและปุ่มกด -->
     <div class="container">
+        
+        <!-- รูปภาพวิทยาลัย -->
+        <div class="college-image-container">
+            <img src="https://nrtech.ac.th/wp-content/uploads/2026/10/856168853_1670789451068939_5338632934637734637_n-2-1024x576.png" alt="บรรยากาศวิทยาลัยเทคนิคนางรอง" class="college-image">
+        </div>
+
         <p class="welcome-text">กรุณาเลือกเมนูที่คุณต้องการรับชมข้อมูลด้านล่าง</p>
 
         <div class="button-grid">
-            <!-- ปุ่มที่ 1: รายละเอียดวิทยาลัย -->
+            <!-- ปุ่มที่ 1 -->
             <div class="btn-card" onclick="openModal('modal-info')">
                 <div class="icon">🏫</div>
                 <h3>1. รายละเอียดวิทยาลัย</h3>
                 <p>ประวัติความเป็นมา วิสัยทัศน์ และสาขาวิชาที่เปิดสอน</p>
             </div>
 
-            <!-- ปุ่มที่ 2: แผนผังวิทยาลัย (เพิ่มใหม่) -->
-            <div class="btn-card" onclick="openModal('modal-plan')">
-                <div class="icon">🗺️</div>
-                <h3>2. แผนผังภายในวิทยาลัย</h3>
-                <p>ภาพถ่ายมุมสูงและตำแหน่งอาคารต่างๆ ภายในวิทยาลัย</p>
-            </div>
-
-            <!-- ปุ่มที่ 3: แผนที่และการเดินทาง -->
+            <!-- ปุ่มที่ 2 -->
             <div class="btn-card" onclick="openModal('modal-map')">
                 <div class="icon">📍</div>
-                <h3>3. แผนที่และการเดินทาง</h3>
+                <h3>2. แผนที่และการเดินทาง</h3>
                 <p>พิกัดการเดินทางและแผนที่นำทางมายังวิทยาลัย</p>
             </div>
 
-            <!-- ปุ่มที่ 4: ข้อมูลการติดต่อ -->
+            <!-- ปุ่มที่ 3 -->
             <div class="btn-card" onclick="openModal('modal-contact')">
                 <div class="icon">📞</div>
-                <h3>4. ข้อมูลการติดต่อ</h3>
+                <h3>3. ข้อมูลการติดต่อ</h3>
                 <p>เบอร์โทรศัพท์ อีเมล และช่องทางโซเชียลมีเดีย</p>
             </div>
         </div>
@@ -271,7 +272,7 @@
         <p>&copy; 2026 วิทยาลัยเทคนิคนางรอง | Nangrong Technical College</p>
     </footer>
 
-    <!-- ================= หน้าต่าง MODAL ================= -->
+    <!-- ================= หน้าต่าง MODAL (3 ปุ่ม) ================= -->
 
     <!-- Modal 1: รายละเอียดเกี่ยวกับวิทยาลัย -->
     <div class="modal-overlay" id="modal-info">
@@ -292,25 +293,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: แผนผังภายในวิทยาลัย (เพิ่มใหม่) -->
-    <div class="modal-overlay" id="modal-plan">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('modal-plan')">&times;</button>
-            <div class="modal-header">
-                <h2>แผนผังวิทยาลัยเทคนิคนางรอง</h2>
-            </div>
-            <div class="modal-body">
-                <p style="text-align: center;">แผนผังแสดงตำแหน่งอาคารและสถานที่ต่างๆ ภายในวิทยาลัย[cite: 1]</p>
-                <div class="plan-image-container">
-                    <!-- แสดงรูปภาพแผนผังอยู่ตรงกลาง -->
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="แผนผังวิทยาลัยเทคนิคนางรอง" id="collegePlanImg">
-                    <!-- หมายเหตุ: หากต้องการใช้รูปภาพจากเครื่องหรือลิงก์จริงของคุณ สามารถเปลี่ยนค่า src ด้านบนเป็นลิงก์รูปภาพของคุณได้เลยครับ -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 3: แผนที่และการนำทาง -->
+    <!-- Modal 2: แผนที่และการนำทาง -->
     <div class="modal-overlay" id="modal-map">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-map')">&times;</button>
@@ -333,7 +316,7 @@
         </div>
     </div>
 
-    <!-- Modal 4: ข้อมูลติดต่อ -->
+    <!-- Modal 3: ข้อมูลติดต่อ -->
     <div class="modal-overlay" id="modal-contact">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-contact')">&times;</button>
@@ -347,7 +330,7 @@
                     <li><strong>📞 เบอร์โทรศัพท์:</strong> 044-XXXXXX (เบอร์กลาง)</li>
                     <li><strong>📠 แฟกซ์:</strong> 044-XXXXXX</li>
                     <li><strong>📧 อีเมล:</strong> saraban@nrtc.ac.th</li>
-                    <li><strong>🌐 เว็บไซต์หลัก:</strong> <a href="http://www.nrtc.ac.th" target="_blank" style="color: #6b217a;">www.nrtc.ac.th</a></li>
+                    <li><strong>🌐 เว็บไซต์หลัก:</strong> <a href="http://www.nrtc.ac.th" target="_blank" style="color: #2a5298;">www.nrtc.ac.th</a></li>
                     <li><strong>🕒 เวลาทำการ:</strong> จันทร์ - ศุกร์ (08.30 น. - 16.30 น.)</li>
                 </ul>
             </div>
@@ -376,3 +359,5 @@
     </script>
 </body>
 </html>
+
+```
